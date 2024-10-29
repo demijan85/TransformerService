@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8BDF5332-1A7E-4619-9FB6-34559443851E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{38E93143-F506-4736-BA35-6CC6FEBD3158}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformer.Api", "src\Transformer.Api\Transformer.Api.csproj", "{F2B54BB6-D0CC-403C-BB27-AD19799D92A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformer.Tests", "tests\Transformer.Tests\Transformer.Tests.csproj", "{1A3AAD86-9312-46B8-AC18-A4A61233CCBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F2B54BB6-D0CC-403C-BB27-AD19799D92A5} = {8BDF5332-1A7E-4619-9FB6-34559443851E}
+		{1A3AAD86-9312-46B8-AC18-A4A61233CCBA} = {38E93143-F506-4736-BA35-6CC6FEBD3158}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2B54BB6-D0CC-403C-BB27-AD19799D92A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B54BB6-D0CC-403C-BB27-AD19799D92A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B54BB6-D0CC-403C-BB27-AD19799D92A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B54BB6-D0CC-403C-BB27-AD19799D92A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A3AAD86-9312-46B8-AC18-A4A61233CCBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A3AAD86-9312-46B8-AC18-A4A61233CCBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A3AAD86-9312-46B8-AC18-A4A61233CCBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A3AAD86-9312-46B8-AC18-A4A61233CCBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
