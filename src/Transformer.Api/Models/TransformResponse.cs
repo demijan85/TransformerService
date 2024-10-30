@@ -2,5 +2,5 @@
 
 public class TransformResponse
 {
-    public List<ResponseModel> Results { get; set; }
+    public List<ResponseModel> Results { get; set; } = new List<ResponseModel>();
 }

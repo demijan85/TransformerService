@@ -80,7 +80,6 @@ TestResults/
 *.Generated.cs
 
 # Docker files
-**/Dockerfile*
 **/*.dockerignore
 
 
