@@ -2,5 +2,5 @@
 
 public interface ITransformer
 {
-    Task<string> TransformAsync(string input, Dictionary<string, string> parameters);
+    string Transform(string input, Dictionary<string, string> parameters);
 }

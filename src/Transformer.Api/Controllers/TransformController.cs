@@ -16,7 +16,7 @@ public class TransformController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Transform([FromBody] TransformRequest request)
+    public IActionResult Transform([FromBody] TransformRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -37,10 +37,10 @@ public class TransformController : ControllerBase
             {
                 foreach (var transformerModel in element.Transformers)
                 {
-                    var transformer = await _transformerFactory
-                        .GetTransformerAsync(transformerModel.GroupId, transformerModel.TransformerId);
+                    var transformer = _transformerFactory
+                        .GetTransformer(transformerModel.GroupId, transformerModel.TransformerId);
 
-                    transformedValue = await transformer.TransformAsync(transformedValue, transformerModel.Parameters);
+                    transformedValue = transformer.Transform(transformedValue, transformerModel.Parameters);
                 }
 
                 response.Results.Add(new ResponseModel

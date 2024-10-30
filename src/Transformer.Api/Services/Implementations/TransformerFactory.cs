@@ -34,7 +34,7 @@ public class TransformerFactory : ITransformerFactory
         }
     }
 
-    public Task<ITransformer> GetTransformerAsync(string groupId, string transformerId)
+    public ITransformer GetTransformer(string groupId, string transformerId)
     {
         if (!_transformerTypes.TryGetValue((groupId, transformerId), out var type))
             throw new InvalidOperationException(
@@ -47,6 +47,6 @@ public class TransformerFactory : ITransformerFactory
             throw new InvalidOperationException($"Failed to resolve transformer of type {type.FullName}");
         }
         
-        return Task.FromResult(transformer);
+        return transformer;
     }
 }

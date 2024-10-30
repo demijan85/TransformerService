@@ -2,5 +2,5 @@
 
 public interface ITransformerFactory
 {
-    Task<ITransformer> GetTransformerAsync(string groupId, string transformerId);
+    ITransformer GetTransformer(string groupId, string transformerId);
 }

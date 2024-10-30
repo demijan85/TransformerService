@@ -5,7 +5,7 @@ namespace TransformerService.Tests.UnitTests;
 public class RegexRemovalTransformerTests
 {
     [Fact]
-    public async Task TransformAsync_RemovesMatchingPatterns()
+    public void Transform_RemovesMatchingPatterns()
     {
         // Arrange
         var transformer = new RegexRemovalTransformer();
@@ -16,14 +16,14 @@ public class RegexRemovalTransformerTests
         };
 
         // Act
-        var result = await transformer.TransformAsync(input, parameters);
+        var result = transformer.Transform(input, parameters);
 
         // Assert
         Assert.Equal("Text with numbers ", result);
     }
 
     [Fact]
-    public async Task TransformAsync_InvalidRegex_ThrowsArgumentException()
+    public void Transform_InvalidRegex_ThrowsArgumentException()
     {
         // Arrange
         var transformer = new RegexRemovalTransformer();
@@ -34,14 +34,14 @@ public class RegexRemovalTransformerTests
         };
 
         // Act & Assert
-        await Assert.ThrowsAsync<ArgumentException>(async () =>
+        Assert.Throws<ArgumentException>(() =>
         {
-            await transformer.TransformAsync(input, parameters);
+            transformer.Transform(input, parameters);
         });
     }
 
     [Fact]
-    public async Task TransformAsync_MissingRegexParameter_ThrowsArgumentException()
+    public void Transform_MissingRegexParameter_ThrowsArgumentException()
     {
         // Arrange
         var transformer = new RegexRemovalTransformer();
@@ -49,9 +49,9 @@ public class RegexRemovalTransformerTests
         var parameters = new Dictionary<string, string>(); // Empty parameters
 
         // Act & Assert
-        var ex = await Assert.ThrowsAsync<ArgumentException>(async () =>
+        var ex = Assert.Throws<ArgumentException>(() =>
         {
-            await transformer.TransformAsync(input, parameters);
+            transformer.Transform(input, parameters);
         });
 
         Assert.Contains("Parameter 'regex' is required", ex.Message);

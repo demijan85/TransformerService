@@ -7,7 +7,7 @@ namespace Transformer.Api.Services.Implementations;
 [Transformer("Group1", "CyrillicGreekToLatin")]
 public class CyrillicGreekToLatinTransformer : BaseTransformer
 {
-    public override Task<string> TransformAsync(string input, Dictionary<string, string> parameters)
+    public override string PerformTransformation(string input, Dictionary<string, string> parameters)
     {
         var normalizedString = input.Normalize(NormalizationForm.FormD);
         var stringBuilder = new StringBuilder();
@@ -25,7 +25,7 @@ public class CyrillicGreekToLatinTransformer : BaseTransformer
         }
 
         var result = stringBuilder.ToString();
-        return Task.FromResult(result);
+        return result;
     }
 
     private static string ConvertChar(char c)

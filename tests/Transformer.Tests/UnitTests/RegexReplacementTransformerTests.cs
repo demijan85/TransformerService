@@ -5,7 +5,7 @@ namespace TransformerService.Tests.UnitTests;
 public class RegexReplacementTransformerTests
 {
     [Fact]
-    public async Task TransformAsync_ReplacesMatchingPatterns()
+    public void Transform_ReplacesMatchingPatterns()
     {
         // Arrange
         var transformer = new RegexReplacementTransformer();
@@ -17,14 +17,14 @@ public class RegexReplacementTransformerTests
         };
 
         // Act
-        var result = await transformer.TransformAsync(input, parameters);
+        var result = transformer.Transform(input, parameters);
 
         // Assert
         Assert.Equal("Replace numbers digits with text", result);
     }
 
     [Fact]
-    public async Task TransformAsync_InvalidRegex_ThrowsArgumentException()
+    public void Transform_InvalidRegex_ThrowsArgumentException()
     {
         // Arrange
         var transformer = new RegexReplacementTransformer();
@@ -36,14 +36,14 @@ public class RegexReplacementTransformerTests
         };
 
         // Act & Assert
-        await Assert.ThrowsAsync<ArgumentException>(async () =>
+        Assert.Throws<ArgumentException>(() =>
         {
-            await transformer.TransformAsync(input, parameters);
+            transformer.Transform(input, parameters);
         });
     }
 
     [Fact]
-    public async Task TransformAsync_MissingParameters_ThrowsArgumentException()
+    public void Transform_MissingParameters_ThrowsArgumentException()
     {
         // Arrange
         var transformer = new RegexReplacementTransformer();
@@ -51,9 +51,9 @@ public class RegexReplacementTransformerTests
         var parameters = new Dictionary<string, string>(); // Empty parameters
 
         // Act & Assert
-        var ex = await Assert.ThrowsAsync<ArgumentException>(async () =>
+        var ex = Assert.Throws<ArgumentException>(() =>
         {
-            await transformer.TransformAsync(input, parameters);
+            transformer.Transform(input, parameters);
         });
 
         Assert.Contains("Parameter 'regex' is required", ex.Message);
