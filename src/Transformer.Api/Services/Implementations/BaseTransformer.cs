@@ -18,11 +18,11 @@ public abstract class BaseTransformer : ITransformer
         }
         catch (ArgumentException ex)
         {
-            throw new ArgumentException("Invalid regex pattern.", ex);
+            throw new ArgumentException(ex.Message);
         }
     }
-    
-    public abstract string PerformTransformation(string input, Dictionary<string, string> parameters);
+
+    protected abstract string PerformTransformation(string input, Dictionary<string, string> parameters);
 
     protected string GetParameter(Dictionary<string, string> parameters, string key)
     {

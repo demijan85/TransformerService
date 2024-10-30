@@ -12,7 +12,7 @@ public class CyrillicGreekToLatinTransformerTests
         var input = "Пример текста";
 
         // Act
-        var result = transformer.Transform(input, null);
+        var result = transformer.Transform(input, new Dictionary<string, string>());
 
         // Assert
         Assert.Equal("Primer teksta", result);
@@ -26,7 +26,7 @@ public class CyrillicGreekToLatinTransformerTests
         var input = "Παρaδειγμα κειμενου";
 
         // Act
-        var result = transformer.Transform(input, null);
+        var result = transformer.Transform(input, new Dictionary<string, string>());
 
         // Assert
         Assert.Equal("Paradeigma keimenoy", result);
@@ -40,7 +40,7 @@ public class CyrillicGreekToLatinTransformerTests
         var input = "Sample text";
 
         // Act
-        var result = transformer.Transform(input, null);
+        var result = transformer.Transform(input, new Dictionary<string, string>());
 
         // Assert
         Assert.Equal("Sample text", result);

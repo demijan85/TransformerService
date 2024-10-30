@@ -6,7 +6,7 @@ namespace Transformer.Api.Services.Implementations;
 [Transformer("Group1", "RegexReplacement")]
 public class RegexReplacementTransformer : BaseTransformer
 {
-    public override string PerformTransformation(string input, Dictionary<string, string> parameters)
+    protected override string PerformTransformation(string input, Dictionary<string, string> parameters)
     {
         var regexPattern = GetParameter(parameters, "regex");
         var replacement = GetParameter(parameters, "replacement");
