@@ -4,18 +4,20 @@ using Transformer.Api.Services.Interfaces;
 
 namespace Transformer.Api.Services.Implementations;
 
-public class TransformerFactory : ITransformerFactory
+public class TransformerFactoryScoped : ITransformerFactory
 {
-    private readonly Dictionary<(string, string), ITransformer> _transformerInstances;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly Dictionary<(string, string), Type> _transformerTypes;
 
-    public TransformerFactory(IServiceProvider serviceProvider)
+    public TransformerFactoryScoped(IServiceProvider serviceProvider)
     {
-        _transformerInstances = new Dictionary<(string, string), ITransformer>();
+        _serviceProvider = serviceProvider;
+        _transformerTypes = new Dictionary<(string, string), Type>();
 
-        LoadTransformers(serviceProvider);
+        LoadTransformers();
     }
 
-    private void LoadTransformers(IServiceProvider serviceProvider)
+    private void LoadTransformers()
     {
         var transformerInterface = typeof(ITransformer);
         var types = Assembly.GetExecutingAssembly()
@@ -27,18 +29,24 @@ public class TransformerFactory : ITransformerFactory
             var attr = type.GetCustomAttribute<TransformerAttribute>();
             if (attr != null)
             {
-                var transformerInstance = (ITransformer)serviceProvider.GetRequiredService(type);
-                _transformerInstances[(attr.GroupId, attr.TransformerId)] = transformerInstance;
+                _transformerTypes[(attr.GroupId, attr.TransformerId)] = type;
             }
         }
     }
 
     public ITransformer GetTransformer(string groupId, string transformerId)
     {
-        if (!_transformerInstances.TryGetValue((groupId, transformerId), out var transformer))
+        if (!_transformerTypes.TryGetValue((groupId, transformerId), out var type))
             throw new InvalidOperationException(
                 $"Transformer not found for GroupId: {groupId}, TransformerId: {transformerId}");
-
+        
+        var transformer = (ITransformer)_serviceProvider.GetService(type)!;
+        
+        if (transformer == null)
+        {
+            throw new InvalidOperationException($"Failed to resolve transformer of type {type.FullName}");
+        }
+        
         return transformer;
     }
 }

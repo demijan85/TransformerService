@@ -90,3 +90,57 @@ The API expects a JSON payload with the following structure:
   ]
 }
 ```
+
+### Example
+```
+{
+    "elements": [
+        {
+            "value": "Dejjan Test 11122",
+            "transformers": [
+                {
+                    "groupId": "Group1",
+                    "transformerId": "RegexRemoval",
+                    "parameters": {
+                        "regex": "\\d+"
+                    }
+                },
+                {
+                    "groupId": "Group1",
+                    "transformerId": "RegexReplacement",
+                    "parameters": {
+                        "regex": "j",
+                        "replacement": "k"
+                    }
+                }
+            ]
+        },
+        {
+            "value": "Дејан Поповић Test 11122 ДП",
+            "transformers": [
+                {
+                    "groupId": "Group1",
+                    "transformerId": "RegexRemoval",
+                    "parameters": {
+                        "regex": "\\d+"
+                    }
+                },
+                {
+                    "groupId": "Group1",
+                    "transformerId": "CyrillicGreekToLatin",
+                    "parameters": {
+                    }
+                },
+                {
+                    "groupId": "Group1",
+                    "transformerId": "RegexReplacement",
+                    "parameters": {
+                        "regex": "j",
+                        "replacement": "k"
+                    }
+                }
+            ]
+        }
+    ]
+}
+```

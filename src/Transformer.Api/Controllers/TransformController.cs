@@ -8,11 +8,11 @@ namespace Transformer.Api.Controllers;
 [Route("api/[controller]")]
 public class TransformController : ControllerBase
 {
-    private readonly ITransformerFactory _transformerFactory;
+    private readonly ITransformationService _transformationService;
 
-    public TransformController(ITransformerFactory transformerFactory)
+    public TransformController(ITransformationService transformationService)
     {
-        _transformerFactory = transformerFactory;
+        _transformationService = transformationService;
     }
 
     [HttpPost]
@@ -23,38 +23,14 @@ public class TransformController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var response = new TransformResponse
+        try
         {
-            Results = new List<ResponseModel>()
-        };
-
-        foreach (var element in request.Elements)
-        {
-            var originalValue = element.Value;
-            var transformedValue = originalValue;
-
-            try
-            {
-                foreach (var transformerModel in element.Transformers)
-                {
-                    var transformer = _transformerFactory
-                        .GetTransformer(transformerModel.GroupId, transformerModel.TransformerId);
-
-                    transformedValue = transformer.Transform(transformedValue, transformerModel.Parameters);
-                }
-
-                response.Results.Add(new ResponseModel
-                {
-                    OriginalValue = originalValue,
-                    TransformedValue = transformedValue
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while processing the element: {ex.Message}");
-            }
+            var response = _transformationService.TransformElements(request);
+            return Ok(response);
         }
-
-        return Ok(response);
+        catch (InvalidOperationException ex)
+        {
+            return StatusCode(500, $"An error occurred during transformation: {ex.Message}");
+        }
     }
 }

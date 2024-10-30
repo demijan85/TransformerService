@@ -9,21 +9,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-/*builder.Services.Scan(scan => scan
-    .FromAssemblyOf<ITransformer>()
-    .AddClasses(classes => classes.AssignableTo<ITransformer>())
-    .AsImplementedInterfaces()
-    .WithScopedLifetime());*/
 var assembly = typeof(ITransformer).Assembly;
 var transformerTypes = assembly.GetTypes()
     .Where(type => typeof(ITransformer).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract);
 
 foreach (var type in transformerTypes)
 {
-    builder.Services.AddScoped(type);
+    builder.Services.AddSingleton(type);
 }
 
-builder.Services.AddScoped<ITransformerFactory, TransformerFactory>();
+builder.Services.AddSingleton<ITransformerFactory, TransformerFactory>();
+builder.Services.AddScoped<ITransformationService, TransformationService>();
 
 var app = builder.Build();
 
